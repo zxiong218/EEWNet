@@ -1,0 +1,18 @@
+{
+"model_input_size": [12, 1024, 10], 
+"model_output_size": [96, 192, 64],
+ "xyz_range": [[16.0, 0.5208, 96], [0.0, 0.5208, 192], [-6.0, 0.45, 64], 30.25, 1.0],
+ "model_org": [41.0, 50.0],
+ "mag_range": [3.5, 0.0085, 1024],
+"dist_range":[0,110.0],
+"station_range":[[0.0,82],[0.0,100]],
+"sample_dt": 0.05,
+"twin_len":30.0,
+"twin_nsmp":600,
+"filter":[2,8],
+"filter_mag":[1,9],
+"model_dl_file":"/home/zxiong/loca_aug/gen_data/merge_model/DetecLoca_py37.hdf5",
+"model_dl_file1":"DetecLoca0817.hdf5",
+"model_m_file":"/home/zxiong/loca_aug/gen_data/merge_model/MagNet_v1007.hdf5",
+"model_m_file1":"/home/zxiong/loca_aug/gen_data/magnet/MagNet_tmp3.hdf5"
+}

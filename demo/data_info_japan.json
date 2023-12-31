@@ -1,0 +1,18 @@
+{
+"h5file":"../data/japan201806180758.h5",
+"stations":[],
+"stations_file":"../data/station_japan.txt",
+"prelist":"2018-06-18T07.58.00.000000Z.",
+"tbegin":"2018-06-18T07:58:00.000000Z",
+"nwin":150,
+"dtwin":2,
+"ampscale":0.000000001,
+"E":"E",
+"N":"N",
+"Z":"U",
+"output_3dimags_range":[0,100,1],
+"data_org":{"lonlat":[135.572, 35.064],"xy":[12365.64583869963, 3898.76616],
+                                      "scale":[91.21091256822669, 111.19],"rt_clockwise":0.0},
+"out_nam":"test1"
+
+}
