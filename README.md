@@ -22,7 +22,7 @@ The models and demo data are available at the following links. Download two mode
 
 - Demo data for Ridgecrest (US) earthquakes: https://drive.google.com/file/d/1JGhwZR_RNRdxo9nTKb_006-rWEIvLlz0/view?usp=sharing
 
-## examples
+## Examples
 Running the monitoring codes is simple. They will output the detection, location, and magnitude results for each time window according to your settings. The codes first load all data streams and truncating windows from your disk, and then the neural networks perform earthquake detection and parameter evaluation simultaneously. 
 ```bash
 python ../moni/netmodel.py moni model_info.json data_info.json 1
@@ -37,7 +37,7 @@ The default length of the *.mp4 is 600 s. You may need to modify the length and 
 python ../plot/produce_movie.py model_info.json data_info.json tmp.mp4 150 1
 ```
 
-## setting files
+## Setting files
 data_info.json contains the settings for data streams.
 ```
 {
