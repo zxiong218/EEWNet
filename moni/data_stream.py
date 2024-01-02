@@ -89,8 +89,9 @@ def h5py_getObspyStream_data(trcns,hf,prep={'freq':[2.0,8.0],'nsmpout':1024},win
             st_tmp=Stream(trcn.copy())
         try:
             #print(win,st_tmp[0].stats.starttime,st_tmp[0].stats.delta,st_tmp[0].stats.npts )
-            st_tmp.filter('bandpass',freqmin=freq[0],freqmax=freq[1])
-            st_tmp.interpolate(sampling_rate=20)
+            if 'preped' not in prep:
+                st_tmp.filter('bandpass',freqmin=freq[0],freqmax=freq[1])
+                st_tmp.interpolate(sampling_rate=20)
             #print(win,st_tmp[0].stats.starttime,st_tmp[0].stats.delta,st_tmp[0].stats.npts)
             st_tmp=st_tmp.slice(starttime=win[0],endtime=win[0]+win[1],keep_empty_traces=True);
             st_tmp.detrend("demean")
@@ -400,7 +401,38 @@ class DataStream():
             return None
         datajs=self.datajs
         sacnams=set_saclist(prelist=prelist, stnam=self.stnam, chn=[datajs['E'],datajs['N'],datajs['Z']])
-        self.saclist=h5py_getObspyStream(trcns=sacnams,hf=self.h5obj)           
+        #self.saclist=h5py_getObspyStream(trcns=sacnams,hf=self.h5obj)   
+        sacstream_dl=h5py_getObspyStream(trcns=sacnams,hf=self.h5obj)
+        sacstream_mag=sacstream_dl.copy()        
+        for i, st_tmp in enumerate(sacstream_dl):
+            try:
+                st_tmp=Stream(st_tmp)
+                st_tmp.filter('bandpass',freqmin=self.modeljs['filter'][0],freqmax=self.modeljs['filter'][1])
+                st_tmp.interpolate(sampling_rate=20)
+            except Exception as e:
+                print('no data in',e,st_tmp);
+                st_tmp=Stream(Trace(np.array([0,]*100)))
+            if i==0:
+                st=st_tmp;
+            else:
+                st=st+st_tmp;
+        sacstream_dl=st
+        for i, st_tmp in enumerate(sacstream_mag):
+            try:
+                st_tmp=Stream(st_tmp)
+                st_tmp.filter('bandpass',freqmin=self.modeljs['filter_mag'][0],freqmax=self.modeljs['filter_mag'][1])
+                st_tmp.interpolate(sampling_rate=20)
+            except Exception as e:
+                print('no data in',e,st_tmp);
+                st_tmp=Stream(Trace(np.array([0,]*100)))
+            if i==0:
+                st=st_tmp;
+            else:
+                st=st+st_tmp;
+        sacstream_mag=st
+        self.saclist={'sacstream_dl':sacstream_dl,'sacstream_mag':sacstream_mag,
+                      'prep_dl':{'freq':self.modeljs['filter'],'nsmpout':self.modeljs['model_input_size'][1],'preped':0},
+                      'prep_mag':{'freq':self.modeljs['filter_mag'],'nsmpout':self.modeljs['model_input_size'][1],'preped':0}}             
         
     def get_waveform_events(self,datatype='DetecLoca'):
         stns1=[]
@@ -461,16 +493,20 @@ class DataStream():
         xdata=[]
         maxvals=[]
         if datatype=='DetecLoca':
-            prep={'freq':self.modeljs['filter'],'nsmpout':self.modeljs['model_input_size'][1]}
+            #prep={'freq':self.modeljs['filter'],'nsmpout':self.modeljs['model_input_size'][1]}
+            prep=self.saclist['prep_dl']
+            saclist=self.saclist['sacstream_dl']
         if datatype=='Mag':
-            prep={'freq':self.modeljs['filter_mag'],'nsmpout':self.modeljs['model_input_size'][1]}
+            #prep={'freq':self.modeljs['filter_mag'],'nsmpout':self.modeljs['model_input_size'][1]}
+            prep=self.saclist['prep_mag']
+            saclist=self.saclist['sacstream_mag']
         if type(tbegin)==str:
             tbegin=UTCDateTime(tbegin)
         tbegins=[]
         rt_clockwise=self.datajs['data_org']['rt_clockwise']
         for i in range(nwin):
             ev_t0=tbegin+i*dt;
-            tmp=h5py_getObspyStream_data(trcns=self.saclist,hf=self.h5obj,win=[ev_t0,self.win_len],prep=prep)
+            tmp=h5py_getObspyStream_data(trcns=saclist,hf=self.h5obj,win=[ev_t0,self.win_len],prep=prep)
             if tmp['nbrok']>12:
                 continue
             #print(ev_t0)
