@@ -21,7 +21,7 @@ The models and demo data are available at the following links. Download two mode
 - Demo data for Osaka (Japan) earthquakes: https://drive.google.com/file/d/1KMU7wfm-AnhcP3qQs1XqVl1BIidK9QYh/view?usp=sharing
 
 - Demo data for Ridgecrest (US) earthquakes: https://drive.google.com/file/d/1JGhwZR_RNRdxo9nTKb_006-rWEIvLlz0/view?usp=sharing
-
+* Or the models and datasets are available at: https://doi.org/10.5061/dryad.wwpzgmsrg *
 ## Examples
 Running the monitoring codes is simple. They will output the detection, location, and magnitude results for each time window according to your settings. The codes first load all data streams and truncating windows from your disk, and then the neural networks perform earthquake detection and parameter evaluation simultaneously. 
 ```bash
