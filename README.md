@@ -12,7 +12,7 @@ conda env create -f env.yml
 conda activate eewnet
 ```
 ## Download models and demo data
-The models and demo data are available at the following links. Download two model files and place them in the "models" folder. Download demo datasets and place them in the "data" folder.
+The models and demo data are available at the following links. Download two model files (*.hdf5) and place them in the "models" folder. Download demo datasets (*.h5) and place them in the "data" folder.
 
 - Detection and location neural network: https://drive.google.com/file/d/1v40sHp3yYZzmIIJzBLqFRb3G1MdqFJ4P/view?usp=sharing
 
@@ -21,7 +21,8 @@ The models and demo data are available at the following links. Download two mode
 - Demo data for Osaka (Japan) earthquakes: https://drive.google.com/file/d/1KMU7wfm-AnhcP3qQs1XqVl1BIidK9QYh/view?usp=sharing
 
 - Demo data for Ridgecrest (US) earthquakes: https://drive.google.com/file/d/1JGhwZR_RNRdxo9nTKb_006-rWEIvLlz0/view?usp=sharing
-* Or the models and datasets are available at: https://doi.org/10.5061/dryad.wwpzgmsrg *
+
+Or the models and datasets are available at: https://doi.org/10.5061/dryad.wwpzgmsrg (Under review)
 ## Examples
 Running the monitoring codes is simple. They will output the detection, location, and magnitude results for each time window according to your settings. The codes first load all data streams and truncating windows from your disk, and then the neural networks perform earthquake detection and parameter evaluation simultaneously. 
 ```bash
