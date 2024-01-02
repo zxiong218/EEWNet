@@ -11,8 +11,6 @@
 "twin_nsmp":600,
 "filter":[2,8],
 "filter_mag":[1,9],
-"model_dl_file":"/home/zxiong/loca_aug/gen_data/merge_model/DetecLoca_py37.hdf5",
-"model_dl_file1":"DetecLoca0817.hdf5",
-"model_m_file":"/home/zxiong/loca_aug/gen_data/merge_model/MagNet_v1007.hdf5",
-"model_m_file1":"/home/zxiong/loca_aug/gen_data/magnet/MagNet_tmp3.hdf5"
+"model_dl_file":"../models/DetecLoca_py37.hdf5",
+"model_m_file":"../models/MagNet_v1007.hdf5"
 }
