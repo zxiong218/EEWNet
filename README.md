@@ -12,7 +12,7 @@ conda env create -f env.yml
 conda activate eewnet
 ```
 ## Download models and demo data
-The models and demo data are available at the following links. Download two model files (*.hdf5) and place them in the "models" folder. Download demo datasets (*.h5) and place them in the "data" folder.
+The models and demo data are available at the following links. Download two model files (\*.hdf5) and place them in the "models" folder. Download demo datasets (\*.h5) and place them in the "data" folder.
 
 - Detection and location neural network: https://drive.google.com/file/d/1v40sHp3yYZzmIIJzBLqFRb3G1MdqFJ4P/view?usp=sharing
 
@@ -29,11 +29,11 @@ Running the monitoring codes is simple. They will output the detection, location
 python ../moni/netmodel.py moni model_info.json data_info.json 1
 ```
 The model_info.json contains all the information for the neural networks. data_info.json contains the data information for neural networks' inputs, such as the how you set the truncating windows, stations, and the origin of the coordinates of the monitoring area. "1" represents you use the No. 1 GPU for computation.
-The output files are *_dlm.csv, *_dlm.pkl, and "*_dlm.mat" representing different formats of the saved results. You can use *_dlm.pkl to make movies to visualize the results, as follows:
+The output files are \*_dlm.csv, \*_dlm.pkl, and "\*_dlm.mat" representing different formats of the saved results. You can use \*_dlm.pkl to make movies to visualize the results, as follows:
 ```bash
 python ../plot/produce_movie.py model_info.json data_info.json tmp.mp4
 ```
-The default length of the *.mp4 is 600 s. You may need to modify the length and the Frames Per Second (fps). The following command outputs a *.mp4 of 150 s and 1 fps:
+The default length of the \*.mp4 is 600 s. You may need to modify the length and the Frames Per Second (fps). The following command outputs a \*.mp4 of 150 s and 1 fps:
 ```bash
 python ../plot/produce_movie.py model_info.json data_info.json tmp.mp4 150 1
 ```
@@ -65,7 +65,7 @@ The "data_org" setting should be close to the mean of xy coordinates of the moni
 ```bash
 moni_check check_json datajs_file.json modeljs_file.json 6
 ```
-The above command can test if the distance between "data_org" and the mean of station xy coordinates is less than 6 km. You also can use "./plot/set_moni_plot.m" to visualize your station distribution and set the monitoring center points in the *.m file. The *.m file could output *_orgsetting.txt file for your setting. You can use it to renew your data_info.json file as follows:
+The above command can test if the distance between "data_org" and the mean of station xy coordinates is less than 6 km. You also can use "./plot/set_moni_plot.m" to visualize your station distribution and set the monitoring center points in the \*.m file. The \*.m file could output \*_orgsetting.txt file for your setting. You can use it to renew your data_info.json file as follows:
 ```bash
 python ../moni/moni_check.py check_renew_datajson data_info.json model_info.json ../plot/tmp_orgsetting.txt 6
 ```
