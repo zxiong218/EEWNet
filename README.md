@@ -26,6 +26,7 @@ Or the models and datasets are available at: https://doi.org/10.5061/dryad.wwpzg
 ## Examples
 Running the monitoring codes is simple. They will output the detection, location, and magnitude results for each time window according to your settings. The codes first load all data streams and truncating windows from your disk, and then the neural networks perform earthquake detection and parameter evaluation simultaneously. 
 ```bash
+cd demo
 python ../moni/netmodel.py moni model_info.json data_info.json 1
 ```
 The model_info.json contains all the information for the neural networks. data_info.json contains the data information for neural networks' inputs, such as the how you set the truncating windows, stations, and the origin of the coordinates of the monitoring area. "1" represents you use the No. 1 GPU for computation.
@@ -33,7 +34,7 @@ The output files are \*_dlm.csv, \*_dlm.pkl, and "\*_dlm.mat" representing diffe
 ```bash
 python ../plot/produce_movie.py model_info.json data_info.json tmp.mp4
 ```
-The default length of the \*.mp4 is 600 s. You may need to modify the length and the Frames Per Second (fps). The following command outputs a \*.mp4 of 150 s and 1 fps:
+You may need to install "moviepy" if have no corresponding pakages in your system. The default length of the \*.mp4 is 600 s. You may need to modify the length and the Frames Per Second (fps). The following command outputs a \*.mp4 of 150 s and 1 fps:
 ```bash
 python ../plot/produce_movie.py model_info.json data_info.json tmp.mp4 150 1
 ```
