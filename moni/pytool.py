@@ -98,6 +98,12 @@ def read_stns_dic(nam, channel=['E','N','Z']):
         stns=[{'geo':[float(i[0]),float(i[1])],'dep':float(i[2]),'stnam':i[3]+'.'+i[4],'channel':channel} for i in txtlines]
     return {'stns':stns}
 
+def read_json(nam):
+    import json
+    with open(nam,'r') as f:
+        js=json.load(f)
+    return js
+
 def write_sacs(data,dt=0.05,starttime='2023-01-01T00:00:00.00',nam='test'):
     for i in range(len(data)):
         trace = Trace(data=data[i])  # 创建Trace对象
@@ -529,7 +535,24 @@ def monitor_select_stations(stns,expect_center,station_range=[[0,82],[0,100]],bi
         return tmp
     else:
         return None
-                    
+
+def align_mag_img(mag_img, imag):
+    mag_img1=list(mag_img)
+    maxv = max(mag_img1)  # 获取mag_img中的最大值
+    maxv_index = mag_img1.index(maxv)  # 获取最大值在mag_img中的位置
+    # 计算需要平移的位移量
+    shift = -int((maxv_index - imag) % len(mag_img1))
+    # 对mag_img进行平移
+    aligned_vector = mag_img1[-shift:] + mag_img1[:-shift]
+    return {'mag_img':aligned_vector}
+
+def align_mag_imgs(mag_imgs, imags):
+    mag_imgs1=[]
+    for i in range(len(imags)):
+        tmp=align_mag_img(mag_imgs[i], imags[i])['mag_img']
+        mag_imgs1.append(tmp)
+    return {'mag_imgs':np.array(mag_imgs1)}
+                  
 if __name__ == '__main__':
     import sys
     #import getopt
