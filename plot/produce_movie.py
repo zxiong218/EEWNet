@@ -30,6 +30,8 @@ if len(arg_fun)>4:
 else:
     movie_seconds=600.0
     movie_fps=int(len(data)/movie_seconds+0.5)
+    if movie_fps==0:
+        movie_fps=1
 
 def plot_1event(data,plt,time=np.array(list(range(600)))*0.05,par={'color':'k-'}):
     nr=len(data)
