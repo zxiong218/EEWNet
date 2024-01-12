@@ -656,12 +656,13 @@ class NetModel():
             xdata=windata['xdata'][idx]
             maxval=windata['maxvals'][idx]
             stns_geo=[[i['geo'][0],i['geo'][1]] for i in stns if i != {}]
-            if stns_geo==[]:
-               dl['mag_prep']={'mags':[],'mags_idx':[],'mean':-9999.0,'median':-9999.0}
-               dl['mag']={'mag_valid':-9999,'mag_mean':-9999,'mag_median':-9999,'mags':[],'mag_img':[[0]*self.mag_range[2]]}
+            if stns_geo==[] or dl['t0'][1]<0.1:
+               stns_geo_num=len(stns_geo)
+               dl['mag_prep']={'mags':[[-999.0,0.0]],'mags_idx':[0],'mean':-9999.0,'median':-9999.0}
+               dl['mag']={'mag_valid':-9999,'mag_mean':-9999,'mag_median':-9999,'mags':[[-999.0,0.0]]*stns_geo_num,'mag_img':np.array([[[0]]*self.mag_range[2]]*stns_geo_num)}
                dl['torg']=UTCDateTime('1980-01-01T00:00:00.00Z')
-               dl['dtps']=[-999,-999]
-               print('no data for magnitude predict in predict_m_dlrec()')
+               dl['dtps']=np.array([-999]*stns_geo_num)
+               #print('no data for magnitude predict in predict_m_dlrec()')
                continue
             tmp=geo2dist(src_geo=geo, stns_geo=stns_geo);
             dists=tmp['dists']
