@@ -48,7 +48,7 @@ for i=1:length(stns(:,1))
 end
 stns(delete_stn_id,:)=-999;
 for i=1:length(stns(:,1))
-    [a,b,c]=distaz(center(1),center(2),center1(1),center1(2));dist(i)=a*111.19;
+    [a,b,c]=distaz(center(1),center(2),stns(1),stns(2));dist(i)=a*111.19;
 end
 tmp=sort(dist);tmp1=tmp(12);
 for i=1:length(stns(:,1))
@@ -90,6 +90,6 @@ fprintf(fid, '%s %f %f %f %f\n', 'stn_mean_moni_center:',center1(1),center1(2),s
 fprintf(fid, '%f %f %f %f\n', stn_rg(1),stn_rg(2),stn_rg(3),stn_rg(4));
 fprintf(fid, '%f %f %f %f\n', src_rg(1),src_rg(2),src_rg(3),src_rg(4));
 for i = 1:length(stn1_id)
-    fprintf(fid, '%d %f %f %s\n', stn1_id(i), stn1(i,1),stn1(i,2),stnnams{stn1_id(i)});
+    fprintf(fid, '%d %f %f %f %s\n', stn1_id(i), stn1(i,1),stn1(i,2),stns(i,3),stnnams{stn1_id(i)});
 end
 fclose(fid);
