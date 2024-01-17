@@ -64,7 +64,7 @@ data_info.json contains the settings for data streams.
 ## Coordinate origin of the monitoring area
 The "data_org" setting should be close to the mean of xy coordinates of the monitoring stations, and you can use the following command to test the settings:
 ```bash
-moni_check check_json datajs_file.json modeljs_file.json 6
+python ../moni/moni_check.py check_json datajs_file.json modeljs_file.json 6
 ```
 The above command can test if the distance between "data_org" and the mean of station xy coordinates is less than 6 km. You also can use "./plot/set_moni_plot.m" to visualize your station distribution and set the monitoring center points in the set_moni_plot.m file. The set_moni_plot.m file could output \*_orgsetting.txt file for your setting. You can use it to renew your data_info.json file as follows:
 ```bash
