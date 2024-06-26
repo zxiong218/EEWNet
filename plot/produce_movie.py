@@ -75,7 +75,7 @@ def prep_mags(magidx,imgs,mags,par={'d_pdf':1.0}):
         #elif dt>0:
         #    img_tmp=img[dt:img_len]+img[0:dt]
         #imgs1[idx]=np.array(img_tmp)
-         imgs1[idx]=np.array(img)
+        imgs1[idx]=np.array(img)
     return {'img':np.array(imgs1),'dmag':magr[1]}
 
 stn=read_stns(datajs['stations_file'])['stns'];stnxy=np.array([[i[0],i[1]] for i in stn]);
