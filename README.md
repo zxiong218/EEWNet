@@ -16,7 +16,7 @@ The models and demo data are available at the following links. Download two mode
 
 - Detection and location neural network: https://drive.google.com/file/d/1v40sHp3yYZzmIIJzBLqFRb3G1MdqFJ4P/view?usp=sharing
 
-- Magnitude neural network: https://drive.google.com/file/d/1flzoVOUwdKoNwGAU-qQAQ9Kdo1QYL7K2/view?usp=sharing
+- Magnitude neural network: https://drive.google.com/file/d/1rLIW7OD5hcxx5AowyPMZVcBIh7xCnpzg/view?usp=drive_link
 
 - Demo data for Osaka (Japan) earthquakes: https://drive.google.com/file/d/1KMU7wfm-AnhcP3qQs1XqVl1BIidK9QYh/view?usp=sharing
 
