@@ -56,7 +56,7 @@ def plt_set_vaules(data,trc_data):
         trc=data[i,0:]
         trc_data[i].set_ydata(trc+i+1)
 def prep_mags(magidx,imgs,mags,par={'d_pdf':1.0}):
-    magr=[0,0.0085,1024];
+    magr=[0.0, 0.009765625, 1024];
     imgs1=[np.array([0]*len(imgs[0]))]*len(imgs)
     if par['d_pdf']<0.6:
         return {'img':np.array(imgs1),'dmag':magr[1]}
@@ -69,12 +69,13 @@ def prep_mags(magidx,imgs,mags,par={'d_pdf':1.0}):
         dt=imag_max-imag
         img=list(img)
         img_len=len(img)
-        if dt<0:
-            dt=-dt
-            img_tmp=img[img_len-dt:]+img[0:img_len-dt]
-        elif dt>0:
-            img_tmp=img[dt:img_len]+img[0:dt]
-        imgs1[idx]=np.array(img_tmp)
+        #if dt<0:
+        #    dt=-dt
+        #    img_tmp=img[img_len-dt:]+img[0:img_len-dt]
+        #elif dt>0:
+        #    img_tmp=img[dt:img_len]+img[0:dt]
+        #imgs1[idx]=np.array(img_tmp)
+         imgs1[idx]=np.array(img)
     return {'img':np.array(imgs1),'dmag':magr[1]}
 
 stn=read_stns(datajs['stations_file'])['stns'];stnxy=np.array([[i[0],i[1]] for i in stn]);
@@ -116,8 +117,8 @@ ax1=fig.add_subplot(1,2,1,label='121')
 mags_prep=mag_prep(mag_mags, mag_dtps)
 mag_img=prep_mags(mags_prep['mags1_idx'], mag_img[:,:,0], mag_mags,par={'d_pdf':d_pdf})
 trc_data_mag=plot_1event(mag_img['img'],ax1,time=np.array(range(1024))*mag_img['dmag'],par={'color':'b-'})
-ax1.xaxis.set_ticks_position('top');ax1.tick_params(axis='x',colors='blue'); plt.xlim(0,8);plt.ylim(0,14);
-plt.xticks(fontsize=15);plt.yticks(range(0,14),());plt.xlabel('Magnitude M$\mathregular{_L}$',fontsize=20,color='blue');
+ax1.xaxis.set_ticks_position('top');ax1.tick_params(axis='x',colors='blue'); plt.xlim(0,10.000);plt.xticks(np.arange(0, 10.0, 1.0));plt.ylim(0,14);
+plt.xticks(fontsize=15);plt.yticks(range(0,14),());plt.xlabel('Magnitude',fontsize=20,color='blue');
 ax1.xaxis.set_label_position('top');
 ax1_1=fig.add_subplot(1,2,1,label='121_1',frame_on=False)
 wave[:,:,2]=wave[:,:,2]/np.max(wave[:,:,2]);
