@@ -399,7 +399,7 @@ def img2mag(img=[],mag_range=[],amp=-1.0):
     mrt=np.max(img1)
     idx=np.where(mrt==img1)[0][0]
     #print(mrt,idx)
-    mag=idx*mag_range[1]+mag_range[0]+amp*1.0
+    mag=idx*mag_range[1]+mag_range[0]#+amp*1.0
     return [mag,mrt]
 def result_mag(imgs=[],mag_range=[],amps=[]):
     num=len(imgs)
@@ -422,7 +422,7 @@ def mag_trcs2event(mags):
         mag_valid=-9999
     return {'mag_valid':mag_valid,'mag_mean':np.mean(mag_valid),'mag_median':np.median(mag_valid),'mags':mags}
         
-def mag_data1event(event_data,dists,dist_range=[0.0,110.0]):
+def mag_data1event(event_data,dists,maxval=1.0,dist_range=[0.0,110.0],ampr=[-10.0,0.0]):
     data=[]
     amps=[]
     for i in range(len(event_data)):
@@ -431,7 +431,8 @@ def mag_data1event(event_data,dists,dist_range=[0.0,110.0]):
         if tmp<0.1E-30:
             continue
         amps.append((tmp1[0]+tmp1[1])/2.0)
-        data.append([[j[0]/tmp,j[1]/tmp,j[2]/tmp,(dists[i]-dist_range[0])/dist_range[1]] for j in event_data[i]])
+        amplog=np.log10((tmp1[0]+tmp1[1])/2.0*maxval);amplog1=(amplog-ampr[0])/(ampr[1]-ampr[0]);#print('s433',amplog1,amplog)
+        data.append([[j[0]/tmp,j[1]/tmp,j[2]/tmp,(dists[i]-dist_range[0])/dist_range[1],amplog1] for j in event_data[i]])
     return {'data':np.array(data),'amps':np.array(amps)}
 
 from keras.models import load_model
@@ -670,7 +671,7 @@ class NetModel():
                                         distance_in_degree=tmp['deltas'])
             tmp_time=time_convert(tbegin=dl['t0'][2], tdetec=dl['t0'][0], ptimes=pstimes['ptimes'])
             dists=dists+[0]*(12-len(dists))
-            tmp=mag_data1event(event_data=xdata, dists=dists, dist_range=self.modeljs['dist_range'])
+            tmp=mag_data1event(event_data=xdata, dists=dists, dist_range=self.modeljs['dist_range'],maxval=maxval)
             mag=self.predict_mag1event(xdata=tmp['data'], amps=(tmp['amps']*maxval))
             tmp2=mag_trcs2event_prep(dtps=tmp_time['dtps'], mags=mag['mags'])
             dl['mag_prep']=tmp2

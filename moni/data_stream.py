@@ -381,7 +381,7 @@ class DataStream():
             tmp1,tmp2=coordinate2model_stn(stnx=st_geo[:,0],stny=st_geo[:,1],
                                            data_org=datajs['data_org'],model_org=modeljs['model_org'])
             stns=[{'X':tmp1[i],'Y':tmp2[i],'geo':st_geo[i],'stnam':stnam[i]} for i in range(len(stnam))] #'E'->x
-            stns=sort_stn(stns=stns)
+            #stns=sort_stn(stns=stns)
             print(stns)
             stxy=[[i['X'],i['Y']] for i in stns]
             st_geo=[[i['geo'][0],i['geo'][1]] for i in stns]
@@ -506,15 +506,15 @@ class DataStream():
         rt_clockwise=self.datajs['data_org']['rt_clockwise']
         for i in range(nwin):
             ev_t0=tbegin+i*dt;
-            tmp=h5py_getObspyStream_data(trcns=saclist,hf=self.h5obj,win=[ev_t0,self.win_len],prep=prep)
+            tmp=h5py_getObspyStream_data(trcns=saclist,hf=self.h5obj,win=[ev_t0,self.win_len],prep=prep);
             if tmp['nbrok']>12:
                 continue
             #print(ev_t0)
-            tmp['data']=np.array(tmp['data'])
+            tmp['data']=np.array(tmp['data']);
             tmp1,tmp2=rotate(data_E=tmp['data'][:,:,0],data_N=tmp['data'][:,:,1],rt_clockwise=rt_clockwise)
             tmp['data'][:,:,0]=tmp1
             tmp['data'][:,:,1]=tmp2
-            xdata_tmp=check_and_norm_data(tmp['data'],stns=self.stns)
+            xdata_tmp=check_and_norm_data(tmp['data'],stns=self.stns);
             if datatype=='DetecLoca':
                 xdata.append(xdata_tmp['xdata'])
             elif datatype=='Mag':
